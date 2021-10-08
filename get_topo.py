@@ -2,15 +2,15 @@ import json
 import httplib2
 
 class ODL_Controller:
-    self.http = httplib2.Http()
-    self.odl_ip = "10.15.3.19"
-    self.odl_port = "6633"
+    http = httplib2.Http()
+    odl_ip = "10.15.3.19"
+    odl_port = "6633"
 
-    def __init__(ip, port):
+    def __init__(self, ip, port):
         self.odl_ip = ip
         self.odl_port = port
 
-    def getTopo(self, h):
+    def getTopo(self):
             request_string = "http://"+odl_ip+":"+odl_port_num+"/controller/nb/v2/topology/default"
             resp, content = http.request(request_string, "GET")
             return content.decode()
