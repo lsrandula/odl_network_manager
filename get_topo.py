@@ -11,9 +11,10 @@ class ODL_Controller:
         self.odl_port = port
 
     def getTopo(self):
-            request_string = "http://"+self.odl_ip+":"+self.odl_port+"/controller/nb/v2/topology/default"
-            resp, content = http.request(request_string, "GET")
+            request_string = "http://"+self.odl_ip+":"+self.odl_port+"/controller/nb/v2/topology/default"     
+            #request_string = "http://127.0.0.1:8181/restconf/operational/network-topology:network-topology/topology/topology-netconf/node/h1"
+            resp, content = self.http.request(request_string, "GET")
             return content.decode()
 
-odl0 = ODL_Controller("10.15.3.19", "6633")
+odl0 = ODL_Controller("10.15.3.19", "8080")
 print (odl0.getTopo())
