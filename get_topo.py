@@ -16,4 +16,4 @@ class ODL_Controller:
             return content.decode()
 
 odl0 = ODL_Controller("10.15.3.19", "6633")
-print (odl0.getTopo)
+print (odl0.getTopo())
