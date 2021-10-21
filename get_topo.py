@@ -36,7 +36,59 @@ class ODL_Controller:
             #     print (i)
             # return 0
 
+
             return nodes
+
+    def getFlowStat(self):
+            request_string = "http://" + self.odl_ip + ":" + self.odl_port + "/restconf/operational/opendaylight-inventory:nodes/node/openflow:1/table/0/flow/fm-sr-link-discovery"
+            # headers = {'network-topology' : 'topology' ,'node' : 'node-id' , 'termination-point' : 'tp-id' }
+            response = requests.get(request_string, auth=('admin', 'admin'))
+            string_xml =  response.json()
+            # nodes = string_xml['network-topology']['topology'][0]['node'][0]
+            nodes = string_xml
+
+    def addFlow(self, switch_id):
+        url = "http://" + self.odl_ip + ":" + self.odl_port + "/restconf/config/opendaylight-inventory:nodes/node/openflow:1/table/0/flow/1"
+        payload = { "flow-node-inventory:flow": [
+         {
+             "id": "1",
+             "priority": 2,
+             "table_id": 0,
+             "hard-timeout": 0,
+             "match": {
+                 "ethernet-match": {
+                     "ethernet-type": {
+                         "type": 2048
+                     }
+                 },
+                 "ipv4-destination": "10.0.10.0/24"
+             },
+             "cookie": 1,
+             "flow-name": "flow1",
+             "instructions": {
+                 "instruction": [
+                     {
+                         "order": 0,
+                         "apply-actions": {
+                             "action": [
+                                 {
+                                     "order": 0,
+                                     "output-action": {
+                                         "output-node-connector": "1"
+                                     }
+                                 }
+                             ]
+                         }
+                     }
+                 ]
+             },
+             "idle-timeout": 0
+         }
+     ]}
+        r = requests.put(url, data=payload)
+
 
 odl0 = ODL_Controller("10.15.3.19", "8181")
 print (odl0.getTopo())
+print (odl0.getFlowStat())
+print (odl0.addFlow(2))
