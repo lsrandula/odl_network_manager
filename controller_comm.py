@@ -1,3 +1,5 @@
+# Handles communication with the OpenDayLight controller
+
 import json
 import httplib2
 import requests
