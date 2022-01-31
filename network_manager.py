@@ -1,6 +1,5 @@
 import controller_comm
 
-S
 odl0 = controller_comm.ODL_Controller()
 print ("Select a function : \n1)View topology\n2)View flow entries\n3)Add a flow\n4)Delete a flow")
 
