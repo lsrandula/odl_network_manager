@@ -34,16 +34,15 @@ class ODL_Controller:
             # string_xml =  response.json()
             # nodes = string_xml['network-topology']['topology'][0]['node'][0]
             nodes = response
-
-
+            
     # Add a flow to a switch
     def addFlow(self, datapath_id, flow_id):
-        add_flow = "/restconf/config/opendaylight-inventory:nodes/node/" + datapath_id + "/table/0/flow/" + flow_id
+        add_flow = "/restconf/operations/sal-flow:add-flow"
         URI = self.ctrl_path + add_flow
         # r = requests.put(url, data=payload)
 
     # Delete a flow from a switch
     def deleteFlow(self, datapath_id, flow_id):
-        delete_flow = "/restconf/config/opendaylightinventory:nodes/node/" + datapath_id + "/table/0/flow/"+ flow_id
+        delete_flow = "/restconf/operations/sal-flow:remove-flow"
         URI = self.ctrl_path + delete_flow
 
