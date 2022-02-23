@@ -14,8 +14,18 @@ if (select==1):
 elif (select==2):
         print ("...View Flow Entries...")
         # print a list of OF switches
-        datapath_id = input("Select an OF switch:")
-        # print (odl0.getFlowStat())
+        topology = odl0.getTopo()
+        switches = []
+        for i in range(len(topology[0])):
+                if (topology[0][i][:9]=="openflow:"):
+                        switches.append(topology[0][i])
+        print ("Switches: ", switches)
+        switch_num = input("Select an OF switch: ")
+        datapath_id = "openflow:"+switch_num
+        # each in flow_entry = [cookie, priority, match, idle_timeout, hard_timeout] format
+        flow_entries = odl0.getFlowStat(datapath_id)
+        for i in range(len(flow_entries)):
+                print ("cookie: ", flow_entries[i][0], ", priority:", flow_entries[i][1], ", match: ", flow_entries[i][2], ", idle-timeout: ", flow_entries[i][3], ", hard-timeout: ", flow_entries[i][4])
 
 elif (select==3):
         print ("...Add a Flow...")

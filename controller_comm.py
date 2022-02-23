@@ -33,14 +33,28 @@ class ODL_Controller:
                 links.append(string_xml['topology'][0]['link'][i]['link-id'])
             return nodes,links
 
-    # Get flow statistics from the controller
-    def getFlowStat(self):
-            get_flowstat = "/restconf/operational/opendaylight-inventory:nodes/node/openflow:1/table/0/flow/fm-sr-link-discovery"
-            URI = self.ctrl_path + get_flowstat
+    # Get flow statistics from the controller for the switch given by "datapath_id"
+    def getFlowStat(self, datapath_id):
+            get_flowstat = "/restconf/operational/opendaylight-inventory:nodes/node/"
+            URI = self.ctrl_path + get_flowstat + datapath_id
             response = requests.get(URI, auth=(self.username, self.password))
-            # string_xml =  response.json()
-            # nodes = string_xml['network-topology']['topology'][0]['node'][0]
-            nodes = response
+            string_xml =  response.json()
+            flows = []
+            flow_entries = []
+            for i in range(len(string_xml['node'][0]['flow-node-inventory:table'])):
+                if (string_xml['node'][0]['flow-node-inventory:table'][i]['id'] == 0):
+                    flows = string_xml['node'][0]['flow-node-inventory:table'][i]['flow']
+                    break
+            for i in range(len(flows)):
+                id = flows[i]['id']
+                priority = flows[i]['priority']
+                cookie = flows[i]['cookie']
+                match = flows[i]['match']
+                idle_timeout = flows[i]['idle-timeout']
+                hard_timeout = flows[i]['hard-timeout']
+                flow_entry = [cookie, priority, match, idle_timeout, hard_timeout]
+                flow_entries.append(flow_entry)
+            return flow_entries
             
     # Add a flow to a switch
     def addFlow(self, datapath_id, flow_id):
