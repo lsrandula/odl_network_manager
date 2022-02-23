@@ -7,7 +7,8 @@ select = int(input("Selection : "))
 
 if (select==1):
         print ("...View Topology...")
-        # print (odl0.getTopo())
+        topology = odl0.getTopo()
+        print ("Nodes: ",topology[0],"\nLinks: ",topology[1])
 
 
 elif (select==2):

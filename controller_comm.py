@@ -21,13 +21,17 @@ class ODL_Controller:
             get_topo = "/restconf/operational/network-topology:network-topology/topology/flow:1"
             URI = self.ctrl_path + get_topo
             print (URI)
-            headers = {'network-topology' : 'topology' ,'node' : 'node-id' , 'termination-point' : 'tp-id' }
-            # response = requests.get(URI, auth=(self.username, self.password))
-            response = requests.get(URI, auth=(self.username, self.password), headers=headers)
-            # string_xml =  response.json()
-            # nodes = string_xml['network-topology']['topology'][0]['node'][0]
-            nodes = response
-            return nodes
+            # headers = {'network-topology' : 'topology' ,'node' : 'node-id' , 'termination-point' : 'tp-id' }
+            response = requests.get(URI, auth=(self.username, self.password))
+            # response = requests.get(URI, auth=(self.username, self.password), headers=headers)
+            string_xml =  response.json()
+            nodes = []
+            links = []
+            for i in range(len(string_xml['topology'][0]['node'])):
+                nodes.append(string_xml['topology'][0]['node'][i]['node-id'])
+            for i in range(len(string_xml['topology'][0]['link'])):
+                links.append(string_xml['topology'][0]['link'][i]['link-id'])
+            return nodes,links
 
     # Get flow statistics from the controller
     def getFlowStat(self):
