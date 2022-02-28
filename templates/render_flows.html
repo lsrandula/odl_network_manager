@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Topology</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/render_flows.css') }}">
+</head>
+
+<div class="topnav">
+    <ul>
+        {% for item in nav.top %}
+        <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<body>
+<b>Flows</b>
+
+<table>
+    <tr>
+        <th>Cookie</th>
+        <th>Priority</th>
+        <th>Match</th>
+        <th>Idle Timeout:</th>
+        <th>Hard Timeout:</th>
+      </tr>
+    {%for flow in flows%}
+       <tr>
+          {%for entry in flow%}
+            <td>{{entry}}</td>
+          {%endfor%}
+       </tr>
+    {%endfor%}
+  </table>
+
+<!-- <div>
+    <ul class="switch_list">
+    {% for flow in flows %}
+        <li>{{ flow }}</a></li>
+    {% endfor %}
+    </ul>
+</div> -->
+
+</body>
+</html>

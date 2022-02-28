@@ -4,7 +4,52 @@
     <meta charset="UTF-8">
     <title>Flows</title>
 </head>
+
+<div class="topnav">
+    <ul>
+        {% for item in nav.top %}
+        <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 <body>
+
 <b>Flows</b>
+<br><br>
+<!-- <select name="cars" id="cars">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="opel">Opel</option>
+    <option value="audi">Audi</option>
+  </select> -->
+
+<form method="POST" action="{{ url_for('render_flows') }}">
+<label for="switch_id">Choose a switch:</label>
+<select name="switch_id" id="switch_id">
+        {% for switch in switches %}
+            <option value="{{ switch }}">{{ switch }}</a></option>
+        {% endfor %}
+
+</select>
+<input type="submit" value="Submit">
+</form> 
+
+<br><br>
+
+<!-- <input type="submit" value="Submit">
+<div class="switch_list">
+    <p>Value from the list:</p>
+    <p>Available switches</p>
+    <ul class="switch_list">
+    {% for switch in switches %}
+        <li class="collection-item">{{ switch }}</a></li>
+    {% endfor %}
+    </ul>
+</div> -->
+<!-- 
+<br>
+<button name="submit_flowview_switch" type="submit" onclick="view_flow()">Submit</button> -->
 </body>
 </html>

@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <title>Topology</title>
 </head>
+
+<div class="topnav">
+    <ul>
+        {% for item in nav.top %}
+        <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
 <body>
 <b>Topology</b>
 </body>

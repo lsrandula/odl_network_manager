@@ -5,12 +5,17 @@
     <title>Title</title>
 </head>
 <body>
+</head>
+    <body>
+
+<div class="topnav">
 <ul>
     {% for item in nav.top %}
-    <li class="{{ 'active' if item.is_active else '' }}">
+    <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
         <a href="{{ item.url }}">{{ item.label }}</a>
     </li>
     {% endfor %}
 </ul>
+</div>
 </body>
 </html>
