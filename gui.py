@@ -9,7 +9,8 @@ nav = Navigation(app)
 # Initializing navigations
 nav.Bar('top', [
     nav.Item('Topology', 'topology'),
-    nav.Item('View Flows', 'view_flows'),
+    nav.Item('View Flow Entries', 'view_flows'),
+    nav.Item('Add/Remove Flow Entries', 'flow_addremove_switch_select'),
 ])
 
 # @app.route('/')
@@ -42,6 +43,23 @@ def render_flows():
     else:
         flows = ["None"]
     return render_template('render_flows.html', flows=flows)
+
+@app.route('/flow_addremove_switch_select/')
+def flow_addremove_switch_select():
+    try:
+        switches = network_manager.get_switchlist()
+    except:
+        switches = ["None"]
+    return render_template('flow_addremove_switch_select.html', switches=switches)
+
+@app.route('/add_flowentry/', methods=['POST', 'GET'])
+def add_flowentry():
+    if request.method == 'POST':
+        switch_id = request.form.get('switch_id')
+        print("Switch ID: ", switch_id)
+    else:
+        flows = ["None"]
+    return render_template('add_flowentry.html', switch_id=switch_id)
 
 # @app.route('/render_flows/')
 # def render_flows(switch_id):
