@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Flow Entry</title>
+</head>
+
+<div class="topnav">
+    <ul>
+        {% for item in nav.top %}
+        <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<body>
+
+<b>Add Flow Entry</b>
+
+<br><br>
+
+  <form >
+    <label for="switch_id" disabled="disabled" placeholder="{{switch_id}}">Switch ID:</label>
+    <input type="text" id="switch_id" name="switch_id"><br><br>
+    <label for="cookie">Cookie:</label>
+    <input type="text" id="cookie" name="cookie"><br><br>
+    <label for="priority">Priority:</label>
+    <input type="text" id="priority" name="priority"><br><br>
+    <label for="dest_ip">Destination IP:</label>
+    <input type="text" id="dest_ip" name="dest_ip"><br><br>
+    <label for="dest_mask">Destination Mask:</label>
+    <input type="text" id="dest_mask" name="dest_mask"><br><br>
+    <input type="submit" value="Submit">
+  </form>
+  
+<br><br>
+
+</body>
+</html>
