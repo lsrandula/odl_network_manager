@@ -43,7 +43,7 @@ def add_flow():
         print ("...Add a Flow...")
         # print a list of OF switches
         datapath_id = input("Select an OF switch:")
-        # print (odl0.addFlow(datapath_id, flow_id))
+        print (odl0.addFlow(0, 0))
 
 
 def delete_flow():
@@ -51,5 +51,3 @@ def delete_flow():
         # print a list of OF switches
         datapath_id = input("Select an OF switch:")
         # print (odl0.deleteFlow(datapath_id, flow_id))
-
-

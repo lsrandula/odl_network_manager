@@ -60,7 +60,38 @@ class ODL_Controller:
     def addFlow(self, datapath_id, flow_id):
         add_flow = "/restconf/operations/sal-flow:add-flow"
         URI = self.ctrl_path + add_flow
-        # r = requests.put(url, data=payload)
+        headers = {'Content-Type': 'application/xml'} 
+        payload = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<input xmlns="urn:opendaylight:flow:service">
+    <node xmlns:inv="urn:opendaylight:inventory">/inv:nodes/inv:node[inv:id="{switch_id}"]</node>
+    <table_id>0</table_id>
+    <priority>{priority}</priority>
+    <cookie>{cookie}</cookie>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>2048</type>
+            </ethernet-type>
+        </ethernet-match>
+        <ipv4-destination>{dest_ip}/{dest_mask}</ipv4-destination>
+    </match>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <output-action>
+                        <output-node-connector>1</output-node-connector>
+                    </output-action>
+                    <order>0</order>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+</input>'''
+        # print (payload)
+        r = requests.post(URI, data=payload, headers=headers, auth=(self.username, self.password))
+        return r
 
     # Delete a flow from a switch
     def deleteFlow(self, datapath_id, flow_id):
