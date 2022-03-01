@@ -39,11 +39,11 @@ def view_flowentries(switch_num):
                 print ("cookie: ", flow_entries[i][0], ", priority:", flow_entries[i][1], ", match: ", flow_entries[i][2], ", idle-timeout: ", flow_entries[i][3], ", hard-timeout: ", flow_entries[i][4])
         return flow_entries
 
-def add_flow():
+def add_flow(switch_id, priority, cookie, dest_ip, dest_mask):
         print ("...Add a Flow...")
         # print a list of OF switches
-        datapath_id = input("Select an OF switch:")
-        print (odl0.addFlow(0, 0))
+        # datapath_id = input("Select an OF switch:")
+        return odl0.addFlow(switch_id, priority, cookie, dest_ip, dest_mask)
 
 
 def delete_flow():

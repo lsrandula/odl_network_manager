@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Flow Entry Status</title>
+</head>
+
+<div class="topnav">
+    <ul>
+        {% for item in nav.top %}
+        <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<body>
+
+<b>Add Flow Entry Status</b>
+
+<br><br>
+
+<b>Adding the flow entry to {{ switch_id }} is {{ status }}<b>
+  
+<br><br>
+
+</body>
+</html>

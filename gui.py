@@ -61,6 +61,22 @@ def add_flowentry():
         flows = ["None"]
     return render_template('add_flowentry.html', switch_id=switch_id)
 
+
+@app.route('/add_flowentry_satus/', methods=['POST', 'GET'])
+def add_flowentry_status():
+    if request.method == 'POST':
+        switch_id = request.form.get('switch_id')
+        cookie = request.form.get('cookie')
+        priority = request.form.get('priority')
+        dest_ip = request.form.get('dest_ip')
+        dest_mask = request.form.get('dest_mask')
+        status = network_manager.add_flow(switch_id, priority, cookie, dest_ip, dest_mask)
+        print ("Add flow status: ", status)
+    else:
+        status = "Unsucessful"
+    return render_template('add_flowentry_status.html', switch_id=switch_id, status=status)
+
+
 # @app.route('/render_flows/')
 # def render_flows(switch_id):
 #     print ("SWITCH ID: ",switch_id[10:])

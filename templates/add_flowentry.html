@@ -20,9 +20,9 @@
 
 <br><br>
 
-  <form >
+  <form method="POST" action="{{ url_for('add_flowentry_status') }}">
     <label for="switch_id">Switch ID:</label>
-    <input type="text" id="switch_id" name="switch_id" disabled="disabled" placeholder="{{ switch_id }}"><br><br>
+    <input type="text" id="switch_id" name="switch_id" value="{{ switch_id }}"><br><br>
     <label for="cookie">Cookie:</label>
     <input type="text" id="cookie" name="cookie"><br><br>
     <label for="priority">Priority:</label>

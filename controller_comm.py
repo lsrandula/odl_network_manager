@@ -57,7 +57,7 @@ class ODL_Controller:
             return flow_entries
             
     # Add a flow to a switch
-    def addFlow(self, datapath_id, flow_id):
+    def addFlow(self, switch_id, priority, cookie, dest_ip, dest_mask):
         add_flow = "/restconf/operations/sal-flow:add-flow"
         URI = self.ctrl_path + add_flow
         headers = {'Content-Type': 'application/xml'} 
