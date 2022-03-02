@@ -17,6 +17,8 @@
 </div>
 <body>
 
+<br><br>
+
 <b>Add Flow Entries</b>
 <br><br>
 
@@ -32,6 +34,22 @@
 </form> 
 
 <br><br>
+<br><br>
+
+<b>Remove Flow Entries</b>
+<br><br>
+
+<form method="POST" action="{{ url_for('remove_flowentry') }}">
+    <label for="switch_id">Choose a switch:</label>
+    <select name="switch_id" id="switch_id">
+            {% for switch in switches %}
+                <option value="{{ switch }}">{{ switch }}</a></option>
+            {% endfor %}
+    
+    </select>
+    <input type="submit" value="Submit">
+    </form> 
+    
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Flow Entries</title>
+    <title>Remove Flow Entry Status</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav_panel.css') }}">
 </head>
 
@@ -18,20 +18,12 @@
 <body>
 
 <br><br>
-<b>View Flow Entries</b>
+<b>Remove Flow Entry Status</b>
+
 <br><br>
 
-<form method="POST" action="{{ url_for('render_flows') }}">
-<label for="switch_id">Choose a switch:</label>
-<select name="switch_id" id="switch_id">
-        {% for switch in switches %}
-            <option value="{{ switch }}">{{ switch }}</a></option>
-        {% endfor %}
-
-</select>
-<input type="submit" value="Submit">
-</form> 
-
+<b>Removing the flow entry from {{ switch_id }} is {{ status }}<b>
+  
 <br><br>
 
 </body>

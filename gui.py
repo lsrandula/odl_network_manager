@@ -42,7 +42,7 @@ def render_flows():
         flows = network_manager.view_flowentries(switch_id[9:])
     else:
         flows = ["None"]
-    return render_template('render_flows.html', flows=flows)
+    return render_template('render_flows.html', flows=flows, switch_id=switch_id)
 
 @app.route('/flow_addremove_switch_select/')
 def flow_addremove_switch_select():
@@ -79,6 +79,42 @@ def add_flowentry_status():
     else:
         status = "Unsucessful"
     return render_template('add_flowentry_status.html', switch_id=switch_id, status=status)
+
+@app.route('/remove_flowentry/', methods=['POST', 'GET'])
+def remove_flowentry():
+    switch_id = request.form.get('switch_id')
+    print("Switch ID: ", switch_id[9:])
+    flows = network_manager.view_flowentries(switch_id[9:])
+    # if request.method == 'POST':
+    #     switch_id = request.form.get('switch_id')
+    #     print("Switch ID: ", switch_id[9:])
+    #     flows = network_manager.view_flowentries(switch_id[9:])
+    # else:
+    #     flows = ["None"]
+    # if request.method == 'POST':
+    #     switch_id = request.form.get('switch_id')
+    #     print("Switch ID: ", switch_id)
+    # else:
+    #     flows = ["None"]
+    return render_template('remove_flowentry.html', flows=flows, switch_id=switch_id)
+
+@app.route('/remove_flowentry_status/', methods=['POST', 'GET'])
+def remove_flowentry_status():
+    if request.method == 'POST':
+        switch_id = request.form.get('switch_id')
+        cookie = request.form.get('cookie')
+        priority = request.form.get('priority')
+        dest_ip = request.form.get('dest_ip')
+        dest_mask = request.form.get('dest_mask')
+        status = network_manager.remove_flow(switch_id, priority, cookie, dest_ip, dest_mask)
+        if (status.status_code==200):
+            status= "Successful"
+        else:
+            status= "Unuccessful"
+        print ("Remove flow status: ", status)
+    else:
+        status = "Unsucessful"
+    return render_template('remove_flowentry_status.html', switch_id=switch_id, status=status)
 
 
 # @app.route('/render_flows/')

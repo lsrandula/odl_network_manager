@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Flow Entry</title>
+    <title>Remove Flow Entry</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/render_flows.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav_panel.css') }}">
 </head>
 
@@ -16,13 +17,33 @@
     </ul>
 </div>
 <body>
-  
-<br><br>
-<b>Add Flow Entry</b>
+
+  <br><br>
+<b>Flow Entries of {{switch_id}}</b>
+
+<table style="display: block; height: 450px; overflow: auto;">
+    <tr>
+        <th style="position: sticky; top: 0; z-index: 1;">Cookie</th>
+        <th style="position: sticky; top: 0; z-index: 1;">Priority</th>
+        <th style="position: sticky; top: 0; z-index: 1;">Match</th>
+        <th style="position: sticky; top: 0; z-index: 1;">Idle Timeout:</th>
+        <th style="position: sticky; top: 0; z-index: 1;">Hard Timeout:</th>
+      </tr>
+    {%for flow in flows%}
+       <tr>
+          {%for entry in flow%}
+            <td>{{entry}}</td>
+          {%endfor%}
+       </tr>
+    {%endfor%}
+  </table>
+
+  <br><br>
+<b>Remove Flow Entry</b>
 
 <br><br>
 
-  <form method="POST" action="{{ url_for('add_flowentry_status') }}">
+  <form method="POST" action="{{ url_for('remove_flowentry_status') }}">
     <label for="switch_id">Switch ID:</label>
     <input type="text" id="switch_id" name="switch_id" value="{{ switch_id }}"><br><br>
     <label for="cookie">Cookie:</label>

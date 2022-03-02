@@ -46,8 +46,8 @@ def add_flow(switch_id, priority, cookie, dest_ip, dest_mask):
         return odl0.addFlow(switch_id, priority, cookie, dest_ip, dest_mask)
 
 
-def delete_flow():
-        print ("...Delete a Flow...")
+def remove_flow(switch_id, priority, cookie, dest_ip, dest_mask):
+        print ("...Remove a Flow...")
         # print a list of OF switches
-        datapath_id = input("Select an OF switch:")
-        # print (odl0.deleteFlow(datapath_id, flow_id))
+        # datapath_id = input("Select an OF switch:")
+        return odl0.removeFlow(switch_id, priority, cookie, dest_ip, dest_mask)
