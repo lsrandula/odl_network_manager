@@ -71,6 +71,10 @@ def add_flowentry_status():
         dest_ip = request.form.get('dest_ip')
         dest_mask = request.form.get('dest_mask')
         status = network_manager.add_flow(switch_id, priority, cookie, dest_ip, dest_mask)
+        if (status.status_code==200):
+            status= "Successful"
+        else:
+            status= "Unuccessful"
         print ("Add flow status: ", status)
     else:
         status = "Unsucessful"
