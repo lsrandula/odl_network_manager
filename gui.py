@@ -6,6 +6,7 @@ import os
   
 app = Flask(__name__)
 nav = Navigation(app)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # Initializing navigations
 nav.Bar('top', [
