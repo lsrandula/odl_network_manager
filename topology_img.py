@@ -26,5 +26,5 @@ def topology_img(Links):
     x_min = min(x_values)
     x_margin = (x_max - x_min) * 0.25
     plt.xlim(x_min - x_margin, x_max + x_margin)
-    plt.savefig('topology.png')
+    plt.savefig('static/images/topology.png')
     print ("Output Topology Image")

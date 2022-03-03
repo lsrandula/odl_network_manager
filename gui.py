@@ -2,6 +2,7 @@
 import network_manager
 from flask import Flask, render_template, request
 from flask_navigation import Navigation
+import os
   
 app = Flask(__name__)
 nav = Navigation(app)
@@ -17,14 +18,16 @@ nav.Bar('top', [
 # def navpage():
 #     return render_template('navpage.html')
 
-@app.route('/')
-@app.route('/topology/')
+@app.route('/', methods=['GET','POST'])
+@app.route('/topology/', methods=['GET','POST'])
 def topology():
     try:
         network_manager.view_topology()
+        image = [i for i in os.listdir('static/images') if i.endswith('.png')][0]
     except:
-        pass
-    return render_template('topology.html')
+        image = None
+    # return render_template('topology.html')
+    return render_template('topology.html', topology=image)
   
 @app.route('/view_flows/')
 def view_flows():
