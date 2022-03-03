@@ -9,7 +9,7 @@ G=nx.Graph()
 
 def topology_img(Links):
     for i in range(len(Links)):
-        print (Links[i])
+        # print (Links[i])
         nodes = Links[i].split("/")
         for i in range(2):
             if "openflow" in nodes[i]:
