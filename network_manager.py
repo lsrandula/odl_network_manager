@@ -1,4 +1,5 @@
 import controller_comm
+import topology_img
 
 odl0 = controller_comm.ODL_Controller()
 
@@ -10,6 +11,8 @@ def view_topology():
         print ("...View Topology...")
         topology = odl0.getTopo()
         print ("Nodes: ",topology[0],"\nLinks: ",topology[1])
+        topology_img.topology_img(topology[1])
+        
 
 def get_switchlist():
         # print a list of OF switches
