@@ -30,7 +30,7 @@ class ODL_Controller:
             for i in range(len(string_xml['topology'][0]['node'])):
                 nodes.append(string_xml['topology'][0]['node'][i]['node-id'])
             for i in range(len(string_xml['topology'][0]['link'])):
-                links.append(string_xml['topology'][0]['link'][i]['link-id'])
+                links.append(string_xml['topology'][0]['link'][i]['source']['source-node']+"/"+string_xml['topology'][0]['link'][i]['destination']['destination-node'])
             return nodes,links
 
     # Get flow statistics from the controller for the switch given by "datapath_id"
