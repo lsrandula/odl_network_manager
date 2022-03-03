@@ -11,6 +11,8 @@ def topology_img(Links):
     for i in range(len(Links)):
         # print (Links[i])
         nodes = Links[i].split("/")
+        if len(nodes)<2:
+            nodes.append(nodes[0])
         for i in range(2):
             if "openflow" in nodes[i]:
                 switch_temp = nodes[i].split(":")
