@@ -2,12 +2,11 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # Links = ['host:00:00:00:00:00:01/openflow:1:1', 'openflow:1:2/host:00:00:00:00:00:02', 'openflow:1:1/host:00:00:00:00:00:01', 'host:00:00:00:00:00:02/openflow:1:2']
-G=nx.Graph()
-
 
 # Add nodes and edges
 
 def topology_img(Links):
+    G=nx.Graph()
     for i in range(len(Links)):
         # print (Links[i])
         nodes = Links[i].split("/")
