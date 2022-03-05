@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 # Add nodes and edges
 
 def topology_img(Links):
+    plt.clf()
     G=nx.Graph()
     for i in range(len(Links)):
         # print (Links[i])
