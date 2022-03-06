@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Batch Flow Entry Status</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav_panel.css') }}">
+</head>
+
+<div class="topnav">
+    <ul>
+        {% for item in nav.top %}
+        <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<body>
+
+<br><br>
+<b>Add Batch Flow Entry Status</b>
+
+<br><br>
+
+<b>Adding the flow is {{ status }}<b>
+  
+<br><br>
+
+</body>
+</html>

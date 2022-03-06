@@ -134,13 +134,29 @@ def batch_flow_add():
 
 @app.route('/add_batchflowentry_status/', methods=['POST', 'GET'])
 def add_batchflowentry_status():
-    try:
-        network_manager.view_topology()
-        image = [i for i in os.listdir('static/images') if i.endswith('.png')][0]
-    except:
-        image = None
-    # return render_template('topology.html')
-    return render_template('add_batchflowentry_status.html', topology=image)
+    if request.method == 'POST':
+        path = request.form.get('path')
+        cookie = request.form.get('cookie')
+        priority = request.form.get('priority')
+        dest_ip = request.form.get('dest_ip')
+        dest_mask = request.form.get('dest_mask')
+        action = request.form.get('action')
+        # print (path)
+        segments = path.split("->")
+        for i in range(len(segments)):
+            id_action = segments[i].split(":")
+            switch_id = "openflow:"+id_action[0][1:]
+            action = id_action[1]
+            print ("Switch ID: ", switch_id)
+            print ("Action: ", action)
+            status = network_manager.add_flow(switch_id, priority, cookie, dest_ip, dest_mask, action)
+            if (status.status_code==200):
+                status = "Successful"
+            else:
+                status = "Unuccessful"
+    else:
+        status = "Unsucessful"
+    return render_template('add_batchflowentry_status.html', status=status)
 
 # @app.route('/render_flows/')
 # def render_flows(switch_id):

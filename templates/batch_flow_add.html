@@ -31,9 +31,18 @@
 
 <br><br>
 
+<b>Input Format: s(switch-no):(output-port)->s(switch-no):(output-port)<b>
 <form method="POST" action="{{ url_for('add_batchflowentry_status') }}">
-  <label for="path">Path (End-to-End):</label>
+  <label for="path">Path (Switch Path):</label>
   <input type="text" id="path" name="path" size="100"><br><br>
+  <label for="cookie">Cookie:</label>
+  <input type="text" id="cookie" name="cookie"><br><br>
+  <label for="priority">Priority:</label>
+  <input type="text" id="priority" name="priority"><br><br>
+  <label for="dest_ip">Destination IP:</label>
+  <input type="text" id="dest_ip" name="dest_ip"><br><br>
+  <label for="dest_mask">Destination Mask:</label>
+  <input type="text" id="dest_mask" name="dest_mask"><br><br>
   <input type="submit" value="Submit">
 </form>
 <br><br>
