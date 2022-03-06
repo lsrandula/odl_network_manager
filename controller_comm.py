@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 class ODL_Controller:
     http = httplib2.Http()
 
-    def __init__(self, ip = "10.15.3.19", port = "8181", username = 'admin', password = 'admin'):
+    def __init__(self, ip = "192.168.1.6", port = "8181", username = 'admin', password = 'admin'):
         self.odl_ip = ip
         self.odl_port = port
         self.ctrl_path = "http://" + self.odl_ip + ":" + self.odl_port
@@ -52,7 +52,15 @@ class ODL_Controller:
                 match = flows[i]['match']
                 idle_timeout = flows[i]['idle-timeout']
                 hard_timeout = flows[i]['hard-timeout']
-                flow_entry = [cookie, priority, match, idle_timeout, hard_timeout]
+                packet_count = flows[i]["opendaylight-flow-statistics:flow-statistics"]["packet-count"]
+                try:
+                    instructions_temp = flows[i]['instructions']
+                    action = instructions_temp['instruction'][0]['apply-actions']['action'][0]['output-action']['output-node-connector']
+                    # print ("Output Port",action)
+                except:
+                    print ("No instructions!")
+                    action = "None"
+                flow_entry = [cookie, priority, match, idle_timeout, hard_timeout, action, packet_count]
                 flow_entries.append(flow_entry)
             return flow_entries
             

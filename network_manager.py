@@ -39,7 +39,7 @@ def view_flowentries(switch_num):
         # each in flow_entry = [cookie, priority, match, idle_timeout, hard_timeout] format
         flow_entries = odl0.getFlowStat(datapath_id)
         for i in range(len(flow_entries)):
-                print ("cookie: ", flow_entries[i][0], ", priority:", flow_entries[i][1], ", match: ", flow_entries[i][2], ", idle-timeout: ", flow_entries[i][3], ", hard-timeout: ", flow_entries[i][4])
+                print ("cookie: ", flow_entries[i][0], ", priority:", flow_entries[i][1], ", match: ", flow_entries[i][2], ", idle-timeout: ", flow_entries[i][3], ", hard-timeout: ", flow_entries[i][4], ", outport-port/action: ", flow_entries[i][5], ", packet count: ", flow_entries[i][6])
         return flow_entries
 
 def add_flow(switch_id, priority, cookie, dest_ip, dest_mask):
