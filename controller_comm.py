@@ -122,8 +122,6 @@ class ODL_Controller:
         </ethernet-match>
         <ipv4-destination>{dest_ip}/{dest_mask}</ipv4-destination>
     </match>
-    <instructions>
-    </instructions>
 </input>'''
         # print (payload)
         r = requests.post(URI, data=payload, headers=headers, auth=(self.username, self.password))
