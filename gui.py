@@ -13,6 +13,7 @@ nav.Bar('top', [
     nav.Item('Topology', 'topology'),
     nav.Item('View Flow Entries', 'view_flows'),
     nav.Item('Add/Remove Flow Entries', 'flow_addremove_switch_select'),
+    nav.Item('Add Batch Flow Entries', 'batch_flow_add'),
 ])
 
 # @app.route('/')
@@ -74,7 +75,8 @@ def add_flowentry_status():
         priority = request.form.get('priority')
         dest_ip = request.form.get('dest_ip')
         dest_mask = request.form.get('dest_mask')
-        status = network_manager.add_flow(switch_id, priority, cookie, dest_ip, dest_mask)
+        action = request.form.get('action')
+        status = network_manager.add_flow(switch_id, priority, cookie, dest_ip, dest_mask, action)
         if (status.status_code==200):
             status= "Successful"
         else:
@@ -120,6 +122,25 @@ def remove_flowentry_status():
         status = "Unsucessful"
     return render_template('remove_flowentry_status.html', switch_id=switch_id, status=status)
 
+@app.route('/batch_flow_add/', methods=['POST', 'GET'])
+def batch_flow_add():
+    try:
+        network_manager.view_topology()
+        image = [i for i in os.listdir('static/images') if i.endswith('.png')][0]
+    except:
+        image = None
+    # return render_template('topology.html')
+    return render_template('batch_flow_add.html', topology=image)
+
+@app.route('/add_batchflowentry_status/', methods=['POST', 'GET'])
+def add_batchflowentry_status():
+    try:
+        network_manager.view_topology()
+        image = [i for i in os.listdir('static/images') if i.endswith('.png')][0]
+    except:
+        image = None
+    # return render_template('topology.html')
+    return render_template('add_batchflowentry_status.html', topology=image)
 
 # @app.route('/render_flows/')
 # def render_flows(switch_id):

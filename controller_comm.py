@@ -27,11 +27,13 @@ class ODL_Controller:
             string_xml =  response.json()
             nodes = []
             links = []
+            link_labels = []
             for i in range(len(string_xml['topology'][0]['node'])):
                 nodes.append(string_xml['topology'][0]['node'][i]['node-id'])
             for i in range(len(string_xml['topology'][0]['link'])):
                 links.append(string_xml['topology'][0]['link'][i]['source']['source-node']+'/'+string_xml['topology'][0]['link'][i]['destination']['dest-node'])
-            return nodes,links
+                link_labels.append(string_xml['topology'][0]['link'][i]['source']['source-tp']+'/'+string_xml['topology'][0]['link'][i]['destination']['dest-tp'])
+            return nodes,links, link_labels
 
     # Get flow statistics from the controller for the switch given by "datapath_id"
     def getFlowStat(self, datapath_id):
@@ -65,7 +67,7 @@ class ODL_Controller:
             return flow_entries
             
     # Add a flow to a switch
-    def addFlow(self, switch_id, priority, cookie, dest_ip, dest_mask):
+    def addFlow(self, switch_id, priority, cookie, dest_ip, dest_mask, action):
         add_flow = "/restconf/operations/sal-flow:add-flow"
         URI = self.ctrl_path + add_flow
         headers = {'Content-Type': 'application/xml'} 
@@ -89,7 +91,7 @@ class ODL_Controller:
             <apply-actions>
                 <action>
                     <output-action>
-                        <output-node-connector>1</output-node-connector>
+                        <output-node-connector>{action}</output-node-connector>
                     </output-action>
                     <order>0</order>
                 </action>

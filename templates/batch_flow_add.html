@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Batch Flow Entries</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav_panel.css') }}">
+</head>
+
+<div class="topnav">
+    <ul>
+        {% for item in nav.top %}
+        <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<body>
+  
+<br><br>
+<b>Add Batch Flow Entries</b>
+<br><br>
+<b>Topology</b>
+<br>
+<form method="POST" action="{{ url_for('topology') }}"></form>
+<input type="reset" value="REFRESH">
+</form>
+
+<br>
+<img src="/static/images/{{ topology }}" alt="Topology">
+
+<br><br>
+
+<form method="POST" action="{{ url_for('add_batchflowentry_status') }}">
+  <label for="path">Path (End-to-End):</label>
+  <input type="text" id="path" name="path" size="100"><br><br>
+  <input type="submit" value="Submit">
+</form>
+<br><br>
+
+</body>
+</html>
