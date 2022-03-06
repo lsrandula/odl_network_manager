@@ -5,6 +5,11 @@ import matplotlib.pyplot as plt
 
 # Add nodes and edges
 
+def remove_leading(str_var):
+    while str_var[0] == "0" or str_var[0]==":":
+            str_var = str_var[1:]
+    return (str_var)
+
 def topology_img(Links, link_labels):
     plt.clf()
     G=nx.Graph()
@@ -21,6 +26,14 @@ def topology_img(Links, link_labels):
         #         nodes[i] = switch_temp[0]+":"+switch_temp[1]
         # print (type(node[0]))
         # edge_labels[node[0],node[1]] = link_labels[i]
+        for j in range(len(link_labels[i])):
+            temp = link_labels[i].split("/")
+            for k in range(len(temp)):
+                if "host" in temp[k]:
+                    temp[k] = "h" + remove_leading(temp[k][4:])
+                elif "openflow" in temp[k]:
+                    temp[k] = "s" + temp[k][8:]
+            link_labels[i] = temp[0]+"/"+temp[1]
         G.add_edge(nodes[0], nodes[1], labels=link_labels[i])
         print ()
         
