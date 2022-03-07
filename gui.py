@@ -1,6 +1,6 @@
 # from flask import *
 import network_manager
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_navigation import Navigation
 import os
   
@@ -21,6 +21,16 @@ nav.Bar('top', [
 #     return render_template('navpage.html')
 
 @app.route('/', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect(url_for('topology'))
+    return render_template('login.html', error=error)
+
 @app.route('/topology/', methods=['GET','POST'])
 def topology():
     try:
