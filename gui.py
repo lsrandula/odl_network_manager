@@ -14,6 +14,7 @@ nav.Bar('top', [
     nav.Item('View Flow Entries', 'view_flows'),
     nav.Item('Add/Remove Flow Entries', 'flow_addremove_switch_select'),
     nav.Item('Add Batch Flow Entries', 'batch_flow_add'),
+    nav.Item('Log Out', 'logout'),
 ])
 
 # @app.route('/')
@@ -21,7 +22,7 @@ nav.Bar('top', [
 #     return render_template('navpage.html')
 
 @app.route('/', methods=['GET','POST'])
-@app.route('/login', methods=['GET', 'POST'])
+# @app.route('/login/', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -167,6 +168,10 @@ def add_batchflowentry_status():
     else:
         status = "Unsucessful"
     return render_template('add_batchflowentry_status.html', status=status)
+
+@app.route('/logout/', methods=['POST', 'GET'])
+def logout():
+    return render_template('logout.html')
 
 # @app.route('/render_flows/')
 # def render_flows(switch_id):
