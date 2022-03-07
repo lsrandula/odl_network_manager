@@ -61,7 +61,7 @@ class ODL_Controller:
                     # print ("Output Port",action)
                 except:
                     print ("No instructions!")
-                    action = "None"
+                    action = "drop"
                 flow_entry = [cookie, priority, match, idle_timeout, hard_timeout, action, packet_count]
                 flow_entries.append(flow_entry)
             return flow_entries
@@ -71,34 +71,63 @@ class ODL_Controller:
         add_flow = "/restconf/operations/sal-flow:add-flow"
         URI = self.ctrl_path + add_flow
         headers = {'Content-Type': 'application/xml'} 
-        payload = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<input xmlns="urn:opendaylight:flow:service">
-    <node xmlns:inv="urn:opendaylight:inventory">/inv:nodes/inv:node[inv:id="{switch_id}"]</node>
-    <table_id>0</table_id>
-    <priority>{priority}</priority>
-    <cookie>{cookie}</cookie>
-    <match>
-        <ethernet-match>
-            <ethernet-type>
-                <type>2048</type>
-            </ethernet-type>
-        </ethernet-match>
-        <ipv4-destination>{dest_ip}/{dest_mask}</ipv4-destination>
-    </match>
-    <instructions>
-        <instruction>
-            <order>0</order>
-            <apply-actions>
-                <action>
-                    <output-action>
-                        <output-node-connector>{action}</output-node-connector>
-                    </output-action>
-                    <order>0</order>
-                </action>
-            </apply-actions>
-        </instruction>
-    </instructions>
-</input>'''
+        print ("Action: ", action)
+        if (action==""):
+            payload = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <input xmlns="urn:opendaylight:flow:service">
+        <node xmlns:inv="urn:opendaylight:inventory">/inv:nodes/inv:node[inv:id="{switch_id}"]</node>
+        <table_id>0</table_id>
+        <priority>{priority}</priority>
+        <cookie>{cookie}</cookie>
+        <match>
+            <ethernet-match>
+                <ethernet-type>
+                    <type>2048</type>
+                </ethernet-type>
+            </ethernet-match>
+            <ipv4-destination>{dest_ip}/{dest_mask}</ipv4-destination>
+        </match>
+        <instructions>
+            <instruction>
+                <order>0</order>
+                <apply-actions>
+                    <action>
+                        <order>0</order>
+                    </action>
+                </apply-actions>
+            </instruction>
+        </instructions>
+    </input>'''
+        else:
+            payload = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <input xmlns="urn:opendaylight:flow:service">
+        <node xmlns:inv="urn:opendaylight:inventory">/inv:nodes/inv:node[inv:id="{switch_id}"]</node>
+        <table_id>0</table_id>
+        <priority>{priority}</priority>
+        <cookie>{cookie}</cookie>
+        <match>
+            <ethernet-match>
+                <ethernet-type>
+                    <type>2048</type>
+                </ethernet-type>
+            </ethernet-match>
+            <ipv4-destination>{dest_ip}/{dest_mask}</ipv4-destination>
+        </match>
+        <instructions>
+            <instruction>
+                <order>0</order>
+                <apply-actions>
+                    <action>
+                        <output-action>
+                            <output-node-connector>{action}</output-node-connector>
+                        </output-action>
+                        <order>0</order>
+                    </action>
+                </apply-actions>
+            </instruction>
+        </instructions>
+    </input>'''
+
         # print (payload)
         r = requests.post(URI, data=payload, headers=headers, auth=(self.username, self.password))
         return r
