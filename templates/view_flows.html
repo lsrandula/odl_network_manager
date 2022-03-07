@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>View Flow Entries</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav_panel.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <div class="topnav">
@@ -18,18 +19,19 @@
 <body>
 
 <br><br>
-<b>View Flow Entries</b>
+<b class="h2">View Flow Entries</b>
 <br><br>
 
 <form method="POST" action="{{ url_for('render_flows') }}">
 <label for="switch_id">Choose a switch:</label>
-<select name="switch_id" id="switch_id">
+<select name="switch_id" id="switch_id" class="form-select" style="width: 200px;">
         {% for switch in switches %}
             <option value="{{ switch }}">{{ switch }}</a></option>
         {% endfor %}
 
 </select>
-<input type="submit" value="Submit">
+<br>
+<input type="submit" value="Submit" class="btn btn-primary">
 </form> 
 
 <br><br>

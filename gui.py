@@ -1,6 +1,6 @@
 # from flask import *
 import network_manager
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_navigation import Navigation
 import os
   

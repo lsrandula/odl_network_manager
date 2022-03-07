@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Topology</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/nav_panel.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <div class="topnav">
     <ul>
         {% for item in nav.top %}
         <li style="display:inline" class="{{ 'active' if item.is_active else '' }}">
-            <a href="{{ item.url }}">{{ item.label }}</a>
+            <a href="{{ item.url }}" >{{ item.label }}</a>
         </li>
         {% endfor %}
     </ul>
@@ -19,12 +20,15 @@
 <body>
 
 <br><br>
-<b>Topology</b>
+<b class="h2">Topology</b>
 <br>
-<form method="POST" action="{{ url_for('topology') }}"></form>
-<input type="reset" value="REFRESH">
-</form>
-
+<br>
+<a href="{{ url_for('topology') }}" class="btn btn-primary" >REFRESH</a>
+<!-- <input type="reset" value="REFRESH"> -->
+<!-- <form method="POST" action="{{ url_for('topology') }}"></form>
+<input type="submit" value="REFRESH">
+</form> -->
+<br>
 <br>
 <img src="/static/images/{{ topology }}" alt="Topology">
 
