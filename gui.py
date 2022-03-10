@@ -75,7 +75,12 @@ def add_flowentry():
         print("Switch ID: ", switch_id)
     else:
         flows = ["None"]
-    return render_template('add_flowentry.html', switch_id=switch_id)
+    try:
+        network_manager.view_topology()
+        image = [i for i in os.listdir('static/images') if i.endswith('.png')][0]
+    except:
+        image = None
+    return render_template('add_flowentry.html', switch_id=switch_id, topology=image)
 
 
 @app.route('/add_flowentry_satus/', methods=['POST', 'GET'])

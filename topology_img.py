@@ -1,5 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import math
 
 # Links = ['host:00:00:00:00:00:01/openflow:1:1', 'openflow:1:2/host:00:00:00:00:00:02', 'openflow:1:1/host:00:00:00:00:00:01', 'host:00:00:00:00:00:02/openflow:1:2']
 
@@ -39,8 +40,8 @@ def topology_img(Links, link_labels):
         
 
     # pos=nx.shell_layout(G)
-    pos=nx.spring_layout(G, scale=3)
-    nx.draw(G, pos, with_labels = True, font_size=8)
+    pos=nx.spring_layout(G, scale=3, k=1.8/math.sqrt(G.order()))
+    nx.draw(G, pos, with_labels = True, font_size=5)
     # nx.draw_networkx_edge_labels(G, pos)
     nx.draw_networkx_edge_labels(G, pos, font_size=4, font_color= "red", clip_on=True )
     x_values, y_values = zip(*pos.values())
