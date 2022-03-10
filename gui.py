@@ -1,4 +1,3 @@
-# from flask import *
 import network_manager
 from flask import Flask, render_template, request, redirect, url_for
 from flask_navigation import Navigation
@@ -17,12 +16,8 @@ nav.Bar('top', [
     nav.Item('Log Out', 'logout'),
 ])
 
-# @app.route('/')
-# def navpage():
-#     return render_template('navpage.html')
 
 @app.route('/', methods=['GET','POST'])
-# @app.route('/login/', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -107,17 +102,6 @@ def remove_flowentry():
     switch_id = request.form.get('switch_id')
     print("Switch ID: ", switch_id[9:])
     flows = network_manager.view_flowentries(switch_id[9:])
-    # if request.method == 'POST':
-    #     switch_id = request.form.get('switch_id')
-    #     print("Switch ID: ", switch_id[9:])
-    #     flows = network_manager.view_flowentries(switch_id[9:])
-    # else:
-    #     flows = ["None"]
-    # if request.method == 'POST':
-    #     switch_id = request.form.get('switch_id')
-    #     print("Switch ID: ", switch_id)
-    # else:
-    #     flows = ["None"]
     return render_template('remove_flowentry.html', flows=flows, switch_id=switch_id)
 
 @app.route('/remove_flowentry_status/', methods=['POST', 'GET'])
@@ -145,7 +129,6 @@ def batch_flow_add():
         image = [i for i in os.listdir('static/images') if i.endswith('.png')][0]
     except:
         image = None
-    # return render_template('topology.html')
     return render_template('batch_flow_add.html', topology=image)
 
 @app.route('/add_batchflowentry_status/', methods=['POST', 'GET'])
@@ -178,17 +161,6 @@ def add_batchflowentry_status():
 def logout():
     return render_template('logout.html')
 
-# @app.route('/render_flows/')
-# def render_flows(switch_id):
-#     print ("SWITCH ID: ",switch_id[10:])
-#     network_manager.view_flowentries(switch_id[10:])
-#     return render_template('render_flows.html')
-
   
 if __name__ == '__main__':
     app.run()
-
-# @app.route('/index/')
-# # @app.route('/index/<name>')
-# def index(name=None):
-#     return render_template('index.html', name=name)

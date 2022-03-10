@@ -17,13 +17,10 @@ class ODL_Controller:
 
     # Get topology information from the controller
     def getTopo(self):
-            # get_topo = "/restconf/operational/network-topology:network-topology"
             get_topo = "/restconf/operational/network-topology:network-topology/topology/flow:1"
             URI = self.ctrl_path + get_topo
             print (URI)
-            # headers = {'network-topology' : 'topology' ,'node' : 'node-id' , 'termination-point' : 'tp-id' }
             response = requests.get(URI, auth=(self.username, self.password))
-            # response = requests.get(URI, auth=(self.username, self.password), headers=headers)
             string_xml =  response.json()
             nodes = []
             links = []
